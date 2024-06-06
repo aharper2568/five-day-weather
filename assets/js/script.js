@@ -1,7 +1,9 @@
 const searchInput = $('#search-input');
-const apiKey = '';
+const apiKey = 'bd013015199429493cae44f19223451c';
 const searchHistoryContainer = $('#search-history');
 const forecastContainerEl = $('#forecast-container');
+const currentWeatherContainer = $('#current-weather');
+
 
 
 
@@ -32,7 +34,7 @@ function populateForeCastContainer(forecastData){
   console.log("=============POPULATE FORECAST CONTAINER FUNCTION==============")
   //where am I append them to? - id
   console.log(forecastData) // convert this into 5 elements, or iterate through every 8th index
-
+forecastContainerEl.text(forecastData.main)
 console.log("ForecastConaiterEl: ", forecastContainerEl)
 
   // create Elements
@@ -40,7 +42,6 @@ console.log("ForecastConaiterEl: ", forecastContainerEl)
   // append the elements that I create
 }
 
-populateForeCastContainer()
 
 
 //BEING ABLE TO RECOGNIZE THE DATATYPE OF SOMETHING BECAUSE THE SYNTAX THAT YOU WRITE (IF YOU'RE USUALLY STUCK NOT KNOWING WHAT TO WRITE NEXT) IS BASED ON THE DATATYPE
@@ -61,13 +62,14 @@ populateForeCastContainer()
 
 function handleFormSubmit(event){
   event.preventDefault();
+  let cityName = searchInput.val()
   //we get our inputs
   //check if its invalid and you cant keep going
-  
+  if (cityName) {
+    searchAPI(cityName)
+  }
   
   //get the city name from the input
-  var cityName = searchInput.val()
-  searchAPI(cityName)
 }
 
 
