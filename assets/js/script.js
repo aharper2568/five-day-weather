@@ -1,4 +1,7 @@
-const searchInput = $('#search-input')
+const searchInput = $('#search-input');
+const apiKey = 'bd013015199429493cae44f19223451c';
+const searchHistoryContainer = $('#search-history');
+const forecastContainerEl = $('#forecast-container');
 
 
 
@@ -29,9 +32,9 @@ function populateForeCastContainer(forecastData){
   console.log("=============POPULATE FORECAST CONTAINER FUNCTION==============")
   //where am I append them to? - id
   console.log(forecastData) // convert this into 5 elements, or iterate through every 8th index
-var forecastContainerEl = document.getElementById("forecast-container")
+  
 console.log("ForecastConaiterEl: ", forecastContainerEl)
-forecastContainerEl.innerHTML = "";
+
   // create Elements
   
   // append the elements that I create
