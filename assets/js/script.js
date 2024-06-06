@@ -8,30 +8,23 @@ const currentWeatherContainer = $('#current-weather');
 
 
 function searchAPI(city){
-  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=bd013015199429493cae44f19223451c`, {
- mode: "cors",
- credentials: 'same-origin'
-})
-  .then(function (response) {
-    console.log("=========RESPONSE =====")
-    console.log(response);
-    console.log("====END RESPONSE ===")
-    return response.json();
-  }).then(function(data){
-    console.log("===DATA FROM API===")
-    console.log(data)
-    populateForeCastContainer(data.list)
-  });
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
+  .then(response => response.json())
+  .then(data => populateForeCastContainer(data.list));
+
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+    .then(response => response.json())
+
 }
 
-  for (let index = 0; index < 50; index+=8) {
-console.log("loop index: ", index)    
-  }
 
 
 //I WANT TO CREATE 5 CARDS AND PUT THEM IN THE FORECAST CONTAINER
 function populateForeCastContainer(forecastData){
   console.log("=============POPULATE FORECAST CONTAINER FUNCTION==============")
+  for (let index = 0; forecastData.length < 50; index+=8) {
+  console.log("loop index: ", index)    
+  }
   //where am I append them to? - id
   console.log(forecastData) // convert this into 5 elements, or iterate through every 8th index
 forecastContainerEl.text(forecastData.main)
