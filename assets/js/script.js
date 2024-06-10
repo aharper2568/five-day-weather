@@ -91,7 +91,15 @@ function handleFormSubmit(event){
   //we get our inputs
   //check if its invalid and you cant keep going
   if (cityName) {
-    searchAPI(cityName)
+    searchAPI(cityName);
+    if (!searchHistory.includes(cityName)) {
+      searchHistory.push(cityName);
+      localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+      addtoSearchHistory(cityName);
+    }
+    searchInput.val('');
+  } else {
+    alert('Please enter a city name.')
   }
   
   //get the city name from the input
