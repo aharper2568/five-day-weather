@@ -3,6 +3,7 @@ const apiKey = 'bd013015199429493cae44f19223451c';
 const searchHistoryContainer = $('#search-history');
 const forecastContainerEl = $('#forecast-container');
 const currentWeatherContainer = $('#current-weather');
+let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
 
 
