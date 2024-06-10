@@ -15,10 +15,10 @@ $(document).ready(function () {
 });
 
 
-function searchAPI(city){
+function searchAPI(city) {
   fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`)
-  .then(response => response.json())
-  .then(data => populateForeCastContainer(data.list));
+    .then(response => response.json())
+    .then(data => populateForeCastContainer(data.list));
 
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`)
     .then(response => response.json())
@@ -27,7 +27,7 @@ function searchAPI(city){
 
 
 function displayCurrentWeather(data) {
-  const {name, main, wind, weather } = data;
+  const { name, main, wind, weather } = data;
   const date = new Date().toLocaleDateString();
   const weatherIcon = `http://openweathermap.org/img/wn/${weather[0].icon}.png`;
 
@@ -93,7 +93,7 @@ function addtoSearchHistory(city) {
 
 //submitbutton on click, handleFormSubmit
 
-function handleFormSubmit(event){
+function handleFormSubmit(event) {
   event.preventDefault();
   let cityName = searchInput.val()
   //we get our inputs
@@ -109,7 +109,7 @@ function handleFormSubmit(event){
   } else {
     alert('Please enter a city name.')
   }
-  
+
   //get the city name from the input
 }
 
@@ -117,20 +117,3 @@ function handleFormSubmit(event){
 
 $('#search-bar').on('submit', handleFormSubmit)
 
-
-function test() {
-  const dayData = {
-    dt_txt: "2022-10-31 12:00:00" // Sample date and time in UTC
-};
-
-// Parse the dt_txt field to create a Date object
-const forecastDate = new Date(dayData.dt_txt);
-
-// Get the formatted date and time in the local timezone
-const formattedDate = forecastDate.toLocaleString();
-
-// Display the formatted date and time
-console.log(`Forecast Date and Time: ${formattedDate}`);
-}
-
-test()
