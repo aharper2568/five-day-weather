@@ -36,18 +36,26 @@ function displayCurrentWeather(data) {
 
 //I WANT TO CREATE 5 CARDS AND PUT THEM IN THE FORECAST CONTAINER
 function populateForeCastContainer(forecastData){
-  console.log("=============POPULATE FORECAST CONTAINER FUNCTION==============")
-  for (let index = 0; forecastData.length < 50; index+=8) {
-  console.log("loop index: ", index)    
-  }
-  //where am I append them to? - id
-  console.log(forecastData) // convert this into 5 elements, or iterate through every 8th index
-forecastContainerEl.text(forecastData.main)
-console.log("ForecastConaiterEl: ", forecastContainerEl)
+  forecastContainerEl.empty();
 
-  // create Elements
-  
-  // append the elements that I create
+  for (let i = 0; forecastData.length < 50; i+=8) {
+    const dayData = forecastData[i]
+    const date = new Date(dayData.dt_txt).toLocaleDateString();
+    const weatherIcon = `http://openweathermap.org/img/wn/${weather[0].icon}.png`;
+
+    const forecastCard = $(`
+    <div class="forecast-card col-lg-2 col-md-4 col-sm-6"
+      <h5>${date}</h5>
+      <img src="${weatherIcon}" alt="${dayData.weather[0].description}">
+      p>Temp: ${dayData.main.temp} °C</p>
+        <p>Wind: ${dayData.wind.speed} m/s</p>
+        <p>Humidity: ${dayData.main.humidity} %</p>
+      </div>
+      `);
+
+      forecastContainerEl.append(forecastCard);
+  }
+
 }
 
 
