@@ -65,12 +65,12 @@ function populateForeCastContainer(forecastData) {
   }
 }
 
-
+//function for displaying search history
 function renderSearchHistory() {
   searchHistoryContainer.empty();
   searchHistory.forEach(city => addtoSearchHistory(city));
 }
-
+//function for what displays
 function addtoSearchHistory(city) {
   const historyItem = $(`<button class="list-group-item list-group-item-action">${city}</button>`)
   historyItem.on('click', function() {
@@ -79,29 +79,16 @@ function addtoSearchHistory(city) {
   searchHistoryContainer.append(historyItem);
 }
 
-//BEING ABLE TO RECOGNIZE THE DATATYPE OF SOMETHING BECAUSE THE SYNTAX THAT YOU WRITE (IF YOU'RE USUALLY STUCK NOT KNOWING WHAT TO WRITE NEXT) IS BASED ON THE DATATYPE
-// NUMBER - 5 or 5.5
-// STRING - "" OR '' OR ``
-// BOOLEAN - false or true
-// NULL/UNDEFINED - no syntax
-// ARRAY - [element,element,element]
-// OBJECT - {key:value, key:value}
-
-
-
-//form
-//id=city-input
-//submit button for this form
 
 //submitbutton on click, handleFormSubmit
 
 function handleFormSubmit(event) {
   event.preventDefault();
-  let cityName = searchInput.val()
-  //we get our inputs
-  //check if its invalid and you cant keep going
+  let cityName = searchInput.val()  //get the city name from the input
+ 
   if (cityName) {
     searchAPI(cityName);
+    // check if cityName is already in history
     if (!searchHistory.includes(cityName)) {
       searchHistory.push(cityName);
       localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
@@ -112,7 +99,6 @@ function handleFormSubmit(event) {
     alert('Please enter a city name.')
   }
 
-  //get the city name from the input
 }
 
 
