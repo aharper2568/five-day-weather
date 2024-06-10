@@ -18,6 +18,21 @@ function searchAPI(city){
 }
 
 
+function displayCurrentWeather(data) {
+  const {name, main, wind, weather } = data;
+  const date = new Date().toLocaleDateString();
+  const weatherIcon = `http://openweathermap.org/img/wn/${weather[0].icon}.png`;
+
+  currentWeatherContainer.html(`
+  <h3>${name} (${date})</h3>
+  <img src="${weatherIcon}" alt="${weather[0].description}">
+  <p>Temperature: ${main.temp} °C</p>
+  <p>Humidity: ${main.humidity} %</p>
+  <p>Wind Speed: ${wind.speed} m/s</p>
+`)
+}
+
+
 
 //I WANT TO CREATE 5 CARDS AND PUT THEM IN THE FORECAST CONTAINER
 function populateForeCastContainer(forecastData){
