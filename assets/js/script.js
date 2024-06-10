@@ -58,7 +58,16 @@ function populateForeCastContainer(forecastData){
 
 }
 
+function renderSearchHistory() {
+  searchHistoryContainer.empty();
+  searchHistory.forEach(city => addtoSearchHistory(city));
+}
 
+function addtoSearchHistory(city) {
+  const historyItem = $(`<button class="list-group-item list-group-item-action">${city}</button>`)
+  historyItem.on('click', searchAPI(city))
+  searchHistoryContainer.append(historyItem);
+}
 
 //BEING ABLE TO RECOGNIZE THE DATATYPE OF SOMETHING BECAUSE THE SYNTAX THAT YOU WRITE (IF YOU'RE USUALLY STUCK NOT KNOWING WHAT TO WRITE NEXT) IS BASED ON THE DATATYPE
 // NUMBER - 5 or 5.5
@@ -91,3 +100,21 @@ function handleFormSubmit(event){
 
 
 $('#search-bar').on('submit', handleFormSubmit)
+
+
+function test() {
+  const dayData = {
+    dt_txt: "2022-10-31 12:00:00" // Sample date and time in UTC
+};
+
+// Parse the dt_txt field to create a Date object
+const forecastDate = new Date(dayData.dt_txt);
+
+// Get the formatted date and time in the local timezone
+const formattedDate = forecastDate.toLocaleString();
+
+// Display the formatted date and time
+console.log(`Forecast Date and Time: ${formattedDate}`);
+}
+
+test()
