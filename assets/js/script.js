@@ -6,7 +6,7 @@ const currentWeatherContainer = $('#current-weather');
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
 
-
+//Ready search history on load
 $(document).ready(function () {
   renderSearchHistory();
   if (searchHistory.length > 0) {
@@ -14,23 +14,23 @@ $(document).ready(function () {
   }
 });
 
-
+// fetch weather data
 function searchAPI(city) {
   fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`)
-    .then(response => response.json())
+    .then(response => response.json()) //forecast data
     .then(data => populateForeCastContainer(data.list));
 
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`)
-    .then(response => response.json())
+    .then(response => response.json()) //current weather data
     .then(data => displayCurrentWeather(data));
 }
 
 
 function displayCurrentWeather(data) {
-  const { name, main, wind, weather } = data;
-  const date = new Date().toLocaleDateString();
+  const { name, main, wind, weather } = data; //breaks down data 
+  const date = new Date().toLocaleDateString(); //get localized date format
   const weatherIcon = `http://openweathermap.org/img/wn/${weather[0].icon}.png`;
-
+//update currentWeatherContainer's html directly, uses fetched current weather data
   currentWeatherContainer.html(`
   <h3>${name} (${date})</h3>
   <img src="${weatherIcon}" alt="${weather[0].description}">
@@ -42,13 +42,13 @@ function displayCurrentWeather(data) {
 
 
 
-//I WANT TO CREATE 5 CARDS AND PUT THEM IN THE FORECAST CONTAINER
+// Populate forecast container with 5-day forecast data
 function populateForeCastContainer(forecastData) {
-  forecastContainerEl.empty();
-
+  forecastContainerEl.empty(); //Remove any previous data
+  // Iterate through the forecast data, picking every 8th entry (3-hour intervals, 8 entries per day)
   for (let index = 0; index < forecastData.length; index += 8) {
     const dayData = forecastData[index];
-    const date = new Date(dayData.dt_txt).toLocaleDateString();
+    const date = new Date(dayData.dt_txt).toLocaleDateString(); //Converts date string to local
     const weatherIcon = `http://openweathermap.org/img/wn/${dayData.weather[0].icon}.png`;
 
     const forecastCard = $(`
