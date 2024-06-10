@@ -7,13 +7,20 @@ let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
 
 
+$(document).ready(function () {
+  renderSearchHistory();
+  if (searchHistory.length > 0) {
+    searchAPI(searchHistory[searchHistory.length - 1]);
+  }
+});
+
 
 function searchAPI(city){
-  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`)
   .then(response => response.json())
   .then(data => populateForeCastContainer(data.list));
 
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`)
     .then(response => response.json())
     .then(data => displayCurrentWeather(data));
 }
@@ -27,7 +34,7 @@ function displayCurrentWeather(data) {
   currentWeatherContainer.html(`
   <h3>${name} (${date})</h3>
   <img src="${weatherIcon}" alt="${weather[0].description}">
-  <p>Temperature: ${main.temp} °C</p>
+  <p>Temperature: ${main.temp} °F</p>
   <p>Humidity: ${main.humidity} %</p>
   <p>Wind Speed: ${wind.speed} m/s</p>
 `)
@@ -36,28 +43,28 @@ function displayCurrentWeather(data) {
 
 
 //I WANT TO CREATE 5 CARDS AND PUT THEM IN THE FORECAST CONTAINER
-function populateForeCastContainer(forecastData){
+function populateForeCastContainer(forecastData) {
   forecastContainerEl.empty();
 
-  for (let i = 0; forecastData.length < 50; i+=8) {
-    const dayData = forecastData[i]
+  for (let index = 0; index < forecastData.length; index += 8) {
+    const dayData = forecastData[index];
     const date = new Date(dayData.dt_txt).toLocaleDateString();
-    const weatherIcon = `http://openweathermap.org/img/wn/${weather[0].icon}.png`;
+    const weatherIcon = `http://openweathermap.org/img/wn/${dayData.weather[0].icon}.png`;
 
     const forecastCard = $(`
-    <div class="forecast-card col-lg-2 col-md-4 col-sm-6"
-      <h5>${date}</h5>
-      <img src="${weatherIcon}" alt="${dayData.weather[0].description}">
-      p>Temp: ${dayData.main.temp} °C</p>
+      <div class="forecast-card col-lg-2 col-md-4 col-sm-6">
+        <h5>${date}</h5>
+        <img src="${weatherIcon}" alt="${dayData.weather[0].description}">
+        <p>Temp: ${dayData.main.temp} °F</p>
         <p>Wind: ${dayData.wind.speed} m/s</p>
         <p>Humidity: ${dayData.main.humidity} %</p>
       </div>
-      `);
+    `);
 
-      forecastContainerEl.append(forecastCard);
+    forecastContainerEl.append(forecastCard);
   }
-
 }
+
 
 function renderSearchHistory() {
   searchHistoryContainer.empty();
