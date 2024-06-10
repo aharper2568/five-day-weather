@@ -14,7 +14,7 @@ function searchAPI(city){
 
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
     .then(response => response.json())
-
+    .then(data => displayCurrentWeather(data));
 }
 
 
