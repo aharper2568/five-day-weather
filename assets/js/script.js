@@ -73,7 +73,9 @@ function renderSearchHistory() {
 
 function addtoSearchHistory(city) {
   const historyItem = $(`<button class="list-group-item list-group-item-action">${city}</button>`)
-  historyItem.on('click', searchAPI(city))
+  historyItem.on('click', function() {
+    searchAPI(city);
+  });
   searchHistoryContainer.append(historyItem);
 }
 
